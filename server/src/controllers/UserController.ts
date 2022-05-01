@@ -8,19 +8,40 @@ export default class UserController {
     async createUser(request: Request, response: Response){
         const {firstName, lastName, age } = request.body;
 
-        const isAnyUndefined = Citi.areBodyValuesUndefined(firstName, lastName, age);
+        const isAnyUndefined = Citi.areValuesUndefined(firstName, lastName, age);
         
-        if(isAnyUndefined){
-            return response.status(400).send();
-        }
-        
+        if(isAnyUndefined) return response.status(400).send();
+    
         const httpStatus = await Citi.insertIntoDatabase(User, { firstName, lastName, age });
         return response.status(httpStatus).send()
     }
 
-    async getUser(request: Request, response: Response){
-        return response.status(201).send({
-            oi: "opa"
-        })
+    async getUsers(request: Request, response: Response){
+        const users = await Citi.getAll(User);
+        return response.status(201).send(users);
+    }
+
+    async deleteUser(request: Request, response: Response){
+        const { id } = request.params;
+        const userFound = await Citi.findByID(User, id);
+        
+        if(!userFound) return response.status(400).send();
+        const httpStatus = await Citi.deleteValue(User, userFound);
+
+        return response.status(httpStatus).send();
+    }
+
+    async updateUser(request: Request, response: Response){
+        const { id } = request.params;
+        const {firstName, lastName, age } = request.body;
+
+        const isAnyUndefined = Citi.areValuesUndefined(firstName, lastName, age);
+        if(isAnyUndefined) return response.status(400).send();
+
+        const httpStatus = await Citi.updateValue(User, id, {
+            firstName, lastName, age
+        });
+
+        return response.status(httpStatus).send();
     }
 }
