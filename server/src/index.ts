@@ -1,5 +1,5 @@
 import './database/connection.ts';
-import routes from './routes.ts'
+import routes from './routes'
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { User } from '@models/User.ts';
-import Citi from '../global/Citi.ts';
+import { User } from '@models/User';
+import Citi from '../global/Citi';
 
 
 export default class UserController {
@@ -12,21 +12,21 @@ export default class UserController {
         
         if(isAnyUndefined) return response.status(400).send();
     
-        const httpStatus = await Citi.insertIntoDatabase(User, { firstName, lastName, age });
+        const httpStatus = Citi.insertIntoDatabase(User, { firstName, lastName, age });
         return response.status(httpStatus).send()
     }
 
     async getUsers(request: Request, response: Response){
-        const users = await Citi.getAll(User);
-        return response.status(201).send(users);
+        const users = Citi.getAll(User);
+        return response.status(200).send(users);
     }
 
     async deleteUser(request: Request, response: Response){
         const { id } = request.params;
-        const userFound = await Citi.findByID(User, id);
+        const userFound = Citi.findByID(User, id);
         
         if(!userFound) return response.status(400).send();
-        const httpStatus = await Citi.deleteValue(User, userFound);
+        const httpStatus = Citi.deleteValue(User, userFound);
 
         return response.status(httpStatus).send();
     }
@@ -38,7 +38,7 @@ export default class UserController {
         const isAnyUndefined = Citi.areValuesUndefined(firstName, lastName, age);
         if(isAnyUndefined) return response.status(400).send();
 
-        const httpStatus = await Citi.updateValue(User, id, {
+        const httpStatus = Citi.updateValue(User, id, {
             firstName, lastName, age
         });
 
