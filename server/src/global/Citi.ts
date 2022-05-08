@@ -1,4 +1,4 @@
-import { getRepository } from 'typeorm';
+import { EntityTarget, getRepository } from 'typeorm';
 
 export default class Citi {
 
@@ -9,7 +9,7 @@ export default class Citi {
         return isAnyUndefined;
     }
 
-    static async insertIntoDatabase<Type>(repositoryType: Type, object: any): number {
+    static async insertIntoDatabase<Type>(repositoryType: EntityTarget<Type>, object: Type): Promise<number> {
         try {
             const repository = getRepository(repositoryType);
             await repository.save(object);
@@ -19,7 +19,7 @@ export default class Citi {
         }
     }
 
-    static async getAll<Type>(repositoryType: Type): Type[] | [] {
+    static async getAll<Type>(repositoryType: EntityTarget<Type>): Promise<[] | Type[]> {
         try {
             const repository = getRepository(repositoryType);
             const values = await repository.find();
@@ -29,7 +29,7 @@ export default class Citi {
         }
     }
 
-    static async findByID<Type>(repositoryType: Type, id: string): Type | undefined {
+    static async findByID<Type>(repositoryType: EntityTarget<Type>, id: string): Promise<Type | undefined> {
         try {
             const entityID = Number(id);
             const repository = getRepository(repositoryType);
@@ -43,7 +43,7 @@ export default class Citi {
         }
     }
 
-    static async deleteValue<Type>(repositoryType: Type, object: T): number {
+    static async deleteValue<Type>(repositoryType: EntityTarget<Type>, object: Type): Promise<number>  {
         try {
             const repository = getRepository(repositoryType);
             await repository.remove(object);
@@ -53,7 +53,7 @@ export default class Citi {
         }
     }
 
-    static async updateValue<Type>(repositoryType: Type, id: string, object: T): number {
+    static async updateValue<Type>(repositoryType: EntityTarget<Type>, id: string, object: Type): Promise<number> {
         try {
             const entityID = Number(id);
             const repository = getRepository(repositoryType)
