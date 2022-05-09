@@ -23,13 +23,13 @@ export default class Citi {
         try {
             const entityRepository = connection.getRepository(entity);
             await entityRepository.save(object);
-            Terminal.showToAspirant(Message.INSERTED_IN_DATABASE);
+            Terminal.show(Message.INSERTED_IN_DATABASE);
             return {
                 httpStatus: 201,
                 message: Message.INSERTED_IN_DATABASE
             }; 
         } catch(error){
-            Terminal.showToAspirant(Message.ERROR_INSERTING_DATABASE);
+            Terminal.show(Message.ERROR_INSERTING_DATABASE);
             return {
                 httpStatus: 400,
                 message: Message.ERROR_INSERTING_DATABASE
@@ -41,13 +41,13 @@ export default class Citi {
         try {
             const entityRepository = connection.getRepository(entity);
             const repositoryValues = await entityRepository.find();
-            Terminal.showToAspirant(Message.GET_ALL_VALUES_FROM_DATABASE);
+            Terminal.show(Message.GET_ALL_VALUES_FROM_DATABASE);
             return {
                 values: repositoryValues,
                 httpStatus: 200
             };
         } catch(error){
-            Terminal.showToAspirant(Message.ERROR_GETTING_VALUES_FROM_DATABASE);
+            Terminal.show(Message.ERROR_GETTING_VALUES_FROM_DATABASE);
             return {
                 values: [],
                 httpStatus: 400
@@ -64,13 +64,13 @@ export default class Citi {
                     id: entityID
                 }
             })
-            Terminal.showToAspirant(Message.VALUE_WAS_FOUND);
+            Terminal.show(Message.VALUE_WAS_FOUND);
             return {
                 value: valueFound[0],
                 message: Message.VALUE_WAS_FOUND
             }; 
         } catch(error){
-            Terminal.showToAspirant(Message.VALUE_WAS_NOT_FOUND);
+            Terminal.show(Message.VALUE_WAS_NOT_FOUND);
             return {
                 value: undefined,
                 message: Message.VALUE_WAS_NOT_FOUND
@@ -82,13 +82,13 @@ export default class Citi {
         try {
             const entityRepository = connection.getRepository(entity);
             await entityRepository.remove(object);
-            Terminal.showToAspirant(Message.VALUE_DELETED_FROM_DATABASE);
+            Terminal.show(Message.VALUE_DELETED_FROM_DATABASE);
             return {
                 httpsStatus: 200,
                 message: Message.VALUE_DELETED_FROM_DATABASE
             };
         } catch(error){
-            Terminal.showToAspirant(Message.ERROR_AT_DELETE_FROM_DATABASE);
+            Terminal.show(Message.ERROR_AT_DELETE_FROM_DATABASE);
             return {
                 httpsStatus: 400,
                 message: Message.ERROR_AT_DELETE_FROM_DATABASE
@@ -101,13 +101,13 @@ export default class Citi {
             const entityID = Number(id);
             const repository = connection.getRepository(repositoryType);
             await repository.update(id, object);
-            Terminal.showToAspirant(Message.VALUE_WAS_UPDATED);
+            Terminal.show(Message.VALUE_WAS_UPDATED);
             return {
                 httpsStatus: 200,
                 message: Message.VALUE_WAS_UPDATED
             };
         } catch(error){
-            Terminal.showToAspirant(Message.ERROR_AT_UPDATE_FROM_DATABASE);
+            Terminal.show(Message.ERROR_AT_UPDATE_FROM_DATABASE);
             return {
                 httpsStatus: 400,
                 message: Message.ERROR_AT_UPDATE_FROM_DATABASE

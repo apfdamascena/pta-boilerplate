@@ -2,7 +2,7 @@
 
 export default class Terminal {
 
-    static showToAspirant(message: string){
+    static show(message: string){
         console.log(message);
     }
 } 
