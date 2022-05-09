@@ -9,39 +9,39 @@ export default class UserController {
         const {firstName, lastName, age } = request.body;
 
         const isAnyUndefined = Citi.areValuesUndefined(firstName, lastName, age);
-        
         if(isAnyUndefined) return response.status(400).send();
-    
-        const httpStatus = Citi.insertIntoDatabase(User, { firstName, lastName, age });
-        return response.status(httpStatus).send()
+
+        const newUser = { firstName, lastName, age };
+        const {httpStatus, message} = await Citi.insertIntoDatabase(User, newUser);
+
+        return response.status(httpStatus).send({message});
     }
 
     async getUsers(request: Request, response: Response){
-        const users = Citi.getAll(User);
-        return response.status(200).send(users);
+        const {httpStatus, values} = await Citi.getAll(User);
+        return response.status(httpStatus).send({values});
     }
 
     async deleteUser(request: Request, response: Response){
         const { id } = request.params;
-        const userFound = Citi.findByID(User, id);
-        
-        if(!userFound) return response.status(400).send();
-        const httpStatus = Citi.deleteValue(User, userFound);
+        const {value: userFound, message } = await Citi.findByID(User, id); 
+           
+        if(!userFound) return response.status(400).send({message});
 
-        return response.status(httpStatus).send();
+        const {httpsStatus, message: messageFromDelete } = await Citi.deleteValue(User, userFound);
+        return response.status(httpsStatus).send({messageFromDelete});
     }
 
     async updateUser(request: Request, response: Response){
         const { id } = request.params;
         const {firstName, lastName, age } = request.body;
 
-        const isAnyUndefined = Citi.areValuesUndefined(firstName, lastName, age);
+        const isAnyUndefined = Citi.areValuesUndefined(firstName, lastName, age, id);
         if(isAnyUndefined) return response.status(400).send();
 
-        const httpStatus = Citi.updateValue(User, id, {
-            firstName, lastName, age
-        });
+        const userWithUpdatedValues = { firstName, lastName, age };
 
+        const httpStatus = Citi.updateValue(User, id, userWithUpdatedValues);
         return response.status(httpStatus).send();
     }
 }

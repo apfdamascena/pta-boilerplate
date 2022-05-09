@@ -1,4 +1,14 @@
-import { EntityTarget, getRepository } from 'typeorm';
+import { DeepPartial, EntityTarget } from 'typeorm';
+import { connection } from 'src/database/connection';
+import Message from "./Message";
+import Terminal from './Terminal';
+import {
+    InsertableDatabase,
+    GetableDatabase,
+    RemoveableDatabase,
+    UpdatableDatabaseValue,
+    FindalbeDatabaseValue
+} from './interfaces'
 
 export default class Citi {
 
@@ -9,59 +19,99 @@ export default class Citi {
         return isAnyUndefined;
     }
 
-    static async insertIntoDatabase<Type>(repositoryType: EntityTarget<Type>, object: Type): Promise<number> {
+    static async insertIntoDatabase<Type>(entity: EntityTarget<Type>, object: DeepPartial<Type>): Promise<InsertableDatabase> {
         try {
-            const repository = getRepository(repositoryType);
-            await repository.save(object);
-            return 201; 
+            const entityRepository = connection.getRepository(entity);
+            await entityRepository.save(object);
+            Terminal.showToAspirant(Message.INSERTED_IN_DATABASE);
+            return {
+                httpStatus: 201,
+                message: Message.INSERTED_IN_DATABASE
+            }; 
         } catch(error){
-            return 400;
+            Terminal.showToAspirant(Message.ERROR_INSERTING_DATABASE);
+            return {
+                httpStatus: 400,
+                message: Message.ERROR_INSERTING_DATABASE
+            };
         }
     }
 
-    static async getAll<Type>(repositoryType: EntityTarget<Type>): Promise<[] | Type[]> {
+    static async getAll<Type>(entity: EntityTarget<Type>): Promise<GetableDatabase<Type>> {
         try {
-            const repository = getRepository(repositoryType);
-            const values = await repository.find();
-            return values;
+            const entityRepository = connection.getRepository(entity);
+            const repositoryValues = await entityRepository.find();
+            Terminal.showToAspirant(Message.GET_ALL_VALUES_FROM_DATABASE);
+            return {
+                values: repositoryValues,
+                httpStatus: 200
+            };
         } catch(error){
-            return [];
+            Terminal.showToAspirant(Message.ERROR_GETTING_VALUES_FROM_DATABASE);
+            return {
+                values: [],
+                httpStatus: 400
+            };
         }
     }
 
-    static async findByID<Type>(repositoryType: EntityTarget<Type>, id: string): Promise<Type | undefined> {
+    static async findByID<Type>(entity: EntityTarget<Type>, id: string): Promise<FindalbeDatabaseValue<Type>> {
         try {
             const entityID = Number(id);
-            const repository = getRepository(repositoryType);
-            const value = await repository.find({
-                where: { id: entityID }
-            }); 
-            const wasFound = value ? value[0] : undefined;
-            return wasFound;
+            const entityRepository = connection.getRepository(entity);
+            const valueFound = await entityRepository.find({
+                where: {
+                    id: entityID
+                }
+            })
+            Terminal.showToAspirant(Message.VALUE_WAS_FOUND);
+            return {
+                value: valueFound[0],
+                message: Message.VALUE_WAS_FOUND
+            }; 
         } catch(error){
-            return undefined;
+            Terminal.showToAspirant(Message.VALUE_WAS_NOT_FOUND);
+            return {
+                value: undefined,
+                message: Message.VALUE_WAS_NOT_FOUND
+            };
         }
     }
 
-    static async deleteValue<Type>(repositoryType: EntityTarget<Type>, object: Type): Promise<number>  {
+    static async deleteValue<Type>(entity: EntityTarget<Type>, object: Type): Promise<RemoveableDatabase>  {
         try {
-            const repository = getRepository(repositoryType);
-            await repository.remove(object);
-            return 200;
+            const entityRepository = connection.getRepository(entity);
+            await entityRepository.remove(object);
+            Terminal.showToAspirant(Message.VALUE_DELETED_FROM_DATABASE);
+            return {
+                httpsStatus: 200,
+                message: Message.VALUE_DELETED_FROM_DATABASE
+            };
         } catch(error){
-            return 400;
+            Terminal.showToAspirant(Message.ERROR_AT_DELETE_FROM_DATABASE);
+            return {
+                httpsStatus: 400,
+                message: Message.ERROR_AT_DELETE_FROM_DATABASE
+            }
         }
     }
 
-    static async updateValue<Type>(repositoryType: EntityTarget<Type>, id: string, object: Type): Promise<number> {
+    static async updateValue<Type>(repositoryType: EntityTarget<Type>, id: string, object: Type): Promise<UpdatableDatabaseValue> {
         try {
             const entityID = Number(id);
-            const repository = getRepository(repositoryType)
-            const modified = repository.update({id: entityID}, object);
-            console.log(modified);
-            return 200;
+            const repository = connection.getRepository(repositoryType);
+            await repository.update(id, object);
+            Terminal.showToAspirant(Message.VALUE_WAS_UPDATED);
+            return {
+                httpsStatus: 200,
+                message: Message.VALUE_WAS_UPDATED
+            };
         } catch(error){
-            return 400;
+            Terminal.showToAspirant(Message.ERROR_AT_UPDATE_FROM_DATABASE);
+            return {
+                httpsStatus: 400,
+                message: Message.ERROR_AT_UPDATE_FROM_DATABASE
+            };
         }
     }
 }
