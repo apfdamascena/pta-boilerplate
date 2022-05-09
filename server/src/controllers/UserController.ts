@@ -17,9 +17,10 @@ export default class UserController {
         return response.status(httpStatus).send({message});
     }
 
+
     async getUsers(request: Request, response: Response){
         const {httpStatus, values} = await Citi.getAll(User);
-        return response.status(httpStatus).send({values});
+        return response.status(httpStatus).send(values);
     }
 
     async deleteUser(request: Request, response: Response){
@@ -41,7 +42,7 @@ export default class UserController {
 
         const userWithUpdatedValues = { firstName, lastName, age };
 
-        const httpStatus = Citi.updateValue(User, id, userWithUpdatedValues);
-        return response.status(httpStatus).send();
+        const { httpsStatus, message } = await Citi.updateValue(User, id, userWithUpdatedValues);
+        return response.status(httpsStatus).send({message});
     }
 }
