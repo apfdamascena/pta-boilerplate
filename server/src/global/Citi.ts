@@ -84,14 +84,14 @@ export default class Citi {
             await entityRepository.remove(object);
             Terminal.show(Message.VALUE_DELETED_FROM_DATABASE);
             return {
-                httpsStatus: 200,
-                message: Message.VALUE_DELETED_FROM_DATABASE
+                httpStatus: 200,
+                messageFromDelete: Message.VALUE_DELETED_FROM_DATABASE
             };
         } catch(error){
             Terminal.show(Message.ERROR_AT_DELETE_FROM_DATABASE);
             return {
-                httpsStatus: 400,
-                message: Message.ERROR_AT_DELETE_FROM_DATABASE
+                httpStatus: 400,
+                messageFromDelete: Message.ERROR_AT_DELETE_FROM_DATABASE
             }
         }
     }
@@ -103,14 +103,14 @@ export default class Citi {
             await repository.update(id, object);
             Terminal.show(Message.VALUE_WAS_UPDATED);
             return {
-                httpsStatus: 200,
-                message: Message.VALUE_WAS_UPDATED
+                httpStatus: 200,
+                messageFromUpdate: Message.VALUE_WAS_UPDATED
             };
         } catch(error){
             Terminal.show(Message.ERROR_AT_UPDATE_FROM_DATABASE);
             return {
-                httpsStatus: 400,
-                message: Message.ERROR_AT_UPDATE_FROM_DATABASE
+                httpStatus: 400,
+                messageFromUpdate: Message.ERROR_AT_UPDATE_FROM_DATABASE
             };
         }
     }

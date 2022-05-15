@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 import { User } from '@models/User';
-import Citi from '../global/Citi';
+import { Citi, Crud } from '../global'
 
+export default class UserController implements Crud {
 
-export default class UserController {
-
-    async createUser(request: Request, response: Response){
-        const {firstName, lastName, age } = request.body;
+    async create(request: Request, response: Response){
+        const {firstName, lastName, age} = request.body;
 
         const isAnyUndefined = Citi.areValuesUndefined(firstName, lastName, age);
         if(isAnyUndefined) return response.status(400).send();
@@ -14,26 +13,25 @@ export default class UserController {
         const newUser = { firstName, lastName, age };
         const {httpStatus, message} = await Citi.insertIntoDatabase(User, newUser);
 
-        return response.status(httpStatus).send({message});
+        return response.status(httpStatus).send({ message });
     }
 
-
-    async getUsers(request: Request, response: Response){
+    async get(request: Request, response: Response){
         const {httpStatus, values} = await Citi.getAll(User);
         return response.status(httpStatus).send(values);
     }
 
-    async deleteUser(request: Request, response: Response){
+    async delete(request: Request, response: Response){
         const { id } = request.params;
         const {value: userFound, message } = await Citi.findByID(User, id); 
            
-        if(!userFound) return response.status(400).send({message});
+        if(!userFound) return response.status(400).send({ message });
 
-        const {httpsStatus, message: messageFromDelete } = await Citi.deleteValue(User, userFound);
-        return response.status(httpsStatus).send({messageFromDelete});
+        const {httpStatus, messageFromDelete } = await Citi.deleteValue(User, userFound);
+        return response.status(httpStatus).send({ messageFromDelete });
     }
 
-    async updateUser(request: Request, response: Response){
+    async update(request: Request, response: Response){
         const { id } = request.params;
         const {firstName, lastName, age } = request.body;
 
@@ -42,7 +40,9 @@ export default class UserController {
 
         const userWithUpdatedValues = { firstName, lastName, age };
 
-        const { httpsStatus, message } = await Citi.updateValue(User, id, userWithUpdatedValues);
-        return response.status(httpsStatus).send({message});
+        const { httpStatus, messageFromUpdate } = await Citi.updateValue(User, id, userWithUpdatedValues);
+        return response.status(httpStatus).send({ messageFromUpdate });
     }
+
+    
 }

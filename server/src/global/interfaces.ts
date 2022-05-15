@@ -10,8 +10,8 @@ interface GetableDatabase<Type> {
 }
 
 interface RemoveableDatabase {
-    httpsStatus: number;
-    message: String;
+    httpStatus: number;
+    messageFromDelete: String;
 }
 
 interface FindalbeDatabaseValue<Type> {
@@ -20,8 +20,8 @@ interface FindalbeDatabaseValue<Type> {
 }
 
 interface UpdatableDatabaseValue {
-    httpsStatus: number;
-    message: String;
+    httpStatus: number;
+    messageFromUpdate: String;
 }
 
 export {
