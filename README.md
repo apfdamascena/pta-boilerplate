@@ -298,7 +298,7 @@ Essa função tem a finalidade de atualizar um valor de modelo dentro de um banc
 
 Exemplo:
 <p align= "center">
-    <img src= "./CITi/update.png.png" width="85%"/>
+    <img src= "./CITi/update.png" width="85%"/>
     </p>
 
 <br/> 
