@@ -12,6 +12,4 @@ export default class Message {
     static VALUE_WAS_NOT_FOUND = "Something Wrong. The values was ->>NOT<<- FOUND BY ID";
     static ERROR_AT_DELETE_FROM_DATABASE = "Something Wrong. The value was NOT deleted"; 
     static ERROR_AT_UPDATE_FROM_DATABASE= "Something Wrong. The value was NOT updated"
-
-
 }

@@ -64,6 +64,9 @@ export default class Citi {
                     id: entityID
                 }
             })
+
+            if(valueFound.length === 0) throw new Error('Nao foi encontrado')
+            
             Terminal.show(Message.VALUE_WAS_FOUND);
             return {
                 value: valueFound[0],
@@ -99,8 +102,17 @@ export default class Citi {
     static async updateValue<Type>(repositoryType: EntityTarget<Type>, id: string, object: Type): Promise<UpdatableDatabaseValue> {
         try {
             const entityID = Number(id);
-            const repository = connection.getRepository(repositoryType);
-            await repository.update(id, object);
+            const entityRepository = connection.getRepository(repositoryType);
+
+            const valueFound = await entityRepository.find({
+                where: {
+                    id: entityID
+                }
+            })
+
+            if(valueFound.length === 0) throw new Error("Não foi encontrado");
+
+            await entityRepository.update(id, object);
             Terminal.show(Message.VALUE_WAS_UPDATED);
             return {
                 httpStatus: 200,

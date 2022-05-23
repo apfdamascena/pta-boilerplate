@@ -9,4 +9,5 @@ routes.get('/user', userController.get);
 routes.delete('/user/:id', userController.delete);
 routes.put('/user/:id', userController.update);
 
+
 export default routes;
