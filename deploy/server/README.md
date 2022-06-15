@@ -115,13 +115,13 @@ Ainda no server, tem uma abstração construída para facilitar o contato de pes
 
 10. Inicialize um repositório git com o seguinte comando.
 
-    ```sh
+  ```sh
     git init
    ```
 
-11. Ao inicializar o repositório git, escreva o seguinte comando. Atenção nome_do_app é o nome criado anteriormente!
+11. Ao inicializar o repositório git, escreva o seguinte comando. Atenção nome_do_app é o nome criado anteriormente.
 
-    ```sh
+  ```sh
     heroku git:remote -a nome_do_app
    ```
 
