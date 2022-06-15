@@ -62,7 +62,7 @@
   O template foi criado em um monorepo e está estruturado em cliente e servidor.
 
 <p align= "center">
-    <img src = "./CITi/client-server.png" width="85%" margin-top="20px"/>
+    <img src = "./assets/client-server.png" width="85%" margin-top="20px"/>
 </p>
 
 O server tem uma estrutura base de código para a construção de uma API. Já o cliente, contém uma outra estrutura base de código para a construção de todo o frontend da aplicação. 
@@ -169,7 +169,7 @@ Essa função verifica se existe um valor undefined passando no argumento.
 
 Exemplo:
 <p align= "center">
-    <img src= "./CITi/undefined.png" width="85%"/>
+    <img src= "./assets/undefined.png" width="85%"/>
     </p>
 
 <br/> 
@@ -195,7 +195,7 @@ Essa função tem a finalidade de inserir um valor de modelo dentro de um banco 
 
 Exemplo:
 <p align= "center">
-    <img src= "./CITi/insert.png" width="85%"/>
+    <img src= "./assets/insert.png" width="85%"/>
     </p>
 
 <br/> 
@@ -221,7 +221,7 @@ Essa função tem a finalidade de pegar TODOS os valores de modelo dentro de um 
 
 Exemplo:
 <p align= "center">
-    <img src= "./CITi/get.png" width="85%"/>
+    <img src= "./assets/get.png" width="85%"/>
     </p>
 
 <br/> 
@@ -247,7 +247,7 @@ Essa função tem a finalidade de procurar um valor de modelo dentro de um banco
 
 Exemplo:
 <p align= "center">
-    <img src= "./CITi/find.png" width="85%"/>
+    <img src= "./assets/find.png" width="85%"/>
     </p>
 
 <br/> 
@@ -273,7 +273,7 @@ Essa função tem a finalidade de deletar um valor de modelo dentro de um banco 
 
 Exemplo:
 <p align= "center">
-    <img src= "./CITi/delete.png" width="85%"/>
+    <img src= "./assets/delete.png" width="85%"/>
     </p>
 
 <br/> 
@@ -298,7 +298,7 @@ Essa função tem a finalidade de atualizar um valor de modelo dentro de um banc
 
 Exemplo:
 <p align= "center">
-    <img src= "./CITi/update.png" width="85%"/>
+    <img src= "./assets/update.png" width="85%"/>
     </p>
 
 <br/> 
