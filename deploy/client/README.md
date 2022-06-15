@@ -65,7 +65,7 @@ Ainda no server, tem uma abstração construída para facilitar o contato de pes
 3. Uma pasta build será criada. Copie o conteúdo dela.
 4. Entre na pasta /server do projeto.
 5. Entre em src/public da pasta /server e cole os arquivos copiados anteriormente.
-6. Faça redeploy do server com os seguintes comandos
+6. Faça redeploy do server. Na pasta /server escreva:
 
     ```sh
    yarn build
