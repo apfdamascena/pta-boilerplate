@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/apfdamascena/pta-boilerplate">
-    <img src="./CITi/logoCITi.png" alt="Logo" width="180px">
+    <img src="./assets/logoCITi.png" alt="Logo" width="180px">
   </a>
 
   <h3 align="center">PTA</h3>
@@ -139,7 +139,7 @@ Ainda no server, tem uma abstração construída para facilitar o contato de pes
 
 5. Espere que o terminal esteja dessa maneira
 
-    <p align= "center"><img src= "./CITi/server-status.png" width="85%"/>
+    <p align= "center"><img src= "./assets/server-status.png" width="85%"/>
         
     </p>
 
@@ -355,7 +355,7 @@ Exemplo:
 
 3. Espere que o terminal esteja dessa maneira
 
-    <p align= "center"><img src= "./CITi/client-status.png" width="85%"/>
+    <p align= "center"><img src= "./assets/client-status.png" width="85%"/>
         
     </p>
 
