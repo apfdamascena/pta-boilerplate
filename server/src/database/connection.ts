@@ -13,13 +13,14 @@ export const connection = new DataSource(
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_DB,
     synchronize: true,
-    entities: ['src/models/*.ts'],
+    entities: [
+      process.env.NODE_ENV !== 'production' ?  './src/models/*' : './models/*'
+    ],
   }
 )
 
-connection.initialize().then( async () => {
-  console.log('📦 Successfully connected with database');
-}).catch((error) => {
-  console.log('Error connecting to database', error);
-})
+
+
+
+
 
