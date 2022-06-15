@@ -31,6 +31,7 @@
       "typeorm": "ts-node node_modules/typeorm/cli.js",
       "migration": "ts-node ./node_modules/typeorm/cli.js migration:run",
       "generate": "ts-node ./node_modules/.bin/typeorm migration:generate -n",
-      "undo-migration": "ts-node ./node_modules/typeorm/cli.js migration:revert"
+      "undo-migration": "ts-node ./node_modules/typeorm/cli.js migration:revert",
+      "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files"
    }
 }
