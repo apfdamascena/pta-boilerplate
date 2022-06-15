@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { DeepPartial, EntityTarget } from 'typeorm';
-import { connection } from 'src/database/connection';
+import { connection } from '../database/connection';
 import Message from "./Message";
 import Terminal from './Terminal';
 import {
