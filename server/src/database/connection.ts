@@ -13,8 +13,9 @@ export const connection = new DataSource(
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_DB,
     synchronize: true,
+    url: process.env.NODE_ENV === 'production' ? process.env.DATABASE_URL : undefined, 
     entities: [
-      process.env.NODE_ENV !== 'production' ?  './src/models/*' : './models/*'
+      process.env.NODE_ENV !== 'production' ?  './src/models/*' : './dist/models/*'
     ],
   }
 )
